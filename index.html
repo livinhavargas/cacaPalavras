@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f5f0" />
+    <meta
+      name="description"
+      content="Um desafio de palavras por dia. Descubra a palavra secreta em até seis tentativas!"
+    />
+    <title>Palavra do Dia — um desafio de cada vez</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Palavra do Dia, início">
+          <span class="brand-mark" aria-hidden="true">P</span>
+          <span>palavra<span class="brand-highlight">.</span></span>
+        </a>
+        <div class="topbar-actions">
+          <button class="icon-button" id="how-to-play" type="button" aria-label="Como jogar">
+            <span aria-hidden="true">?</span>
+          </button>
+          <button class="icon-button" id="show-stats" type="button" aria-label="Ver estatísticas">
+            <span aria-hidden="true">▥</span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="home-screen" id="home-screen">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> SEU DESAFIO DE HOJE</p>
+            <h1>Uma palavra.<br /><span>Seis chances.</span></h1>
+            <p class="hero-description">
+              Descubra a palavra secreta e mostre que sua aura está em dia.
+            </p>
+          </div>
+
+          <div class="daily-card">
+            <div class="daily-card-top">
+              <span class="topic-icon" aria-hidden="true">✦</span>
+              <span class="topic-label">TEMA DE HOJE</span>
+              <span class="daily-date" id="daily-date"></span>
+            </div>
+            <h2>Memes & internet</h2>
+            <p>Uma palavra de 5 letras. A missão é sua.</p>
+            <div class="preview-tiles" aria-hidden="true">
+              <span class="preview-tile preview-green">A</span>
+              <span class="preview-tile preview-yellow">U</span>
+              <span class="preview-tile preview-muted">R</span>
+              <span class="preview-tile preview-muted">A</span>
+              <span class="preview-tile preview-muted">S</span>
+            </div>
+            <button class="primary-button start-button" id="start-game" type="button">
+              <span id="start-label">Jogar o desafio</span>
+              <span aria-hidden="true">→</span>
+            </button>
+            <p class="daily-note"><span aria-hidden="true">◷</span> Um novo desafio a cada dia</p>
+          </div>
+
+          <section class="stats-strip" aria-label="Suas estatísticas">
+            <div class="stat-item">
+              <span class="stat-value" id="home-streak">0</span>
+              <span class="stat-label">dias de streak</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value" id="home-wins">0</span>
+              <span class="stat-label">vitórias</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value" id="home-win-rate">0%</span>
+              <span class="stat-label">de acerto</span>
+            </div>
+          </section>
+
+          <p class="privacy-note"><span aria-hidden="true">♡</span> Sem cadastro. Seu progresso fica neste aparelho.</p>
+        </section>
+
+        <section class="game-screen" id="game-screen" hidden>
+          <div class="game-heading">
+            <button class="back-button" id="back-home" type="button">
+              <span aria-hidden="true">←</span> Início
+            </button>
+            <div class="game-topic"><span aria-hidden="true">✦</span> MEMES & INTERNET</div>
+            <p class="game-date" id="game-date"></p>
+          </div>
+          <div class="game-instructions">
+            <h1>Qual é a palavra?</h1>
+            <p>Digite uma palavra de <strong>5 letras</strong> e descubra as pistas.</p>
+          </div>
+          <div class="board" id="board" role="grid" aria-label="Tabuleiro de tentativas"></div>
+          <p class="game-message" id="game-message" role="status" aria-live="polite"></p>
+          <div class="keyboard" id="keyboard" aria-label="Teclado virtual"></div>
+          <section class="result-panel" id="result-panel" aria-live="polite" hidden>
+            <div class="result-copy">
+              <p class="result-eyebrow" id="result-eyebrow"></p>
+              <h2 id="result-title"></h2>
+              <p id="result-description"></p>
+            </div>
+            <button class="secondary-button share-button" id="share-result" type="button">
+              <span aria-hidden="true">↗</span> Compartilhar resultado
+            </button>
+          </section>
+          <p class="keyboard-hint">Dica: você também pode usar o teclado do seu aparelho.</p>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>Feito para jogar junto, um dia de cada vez.</span>
+        <span class="footer-sparkle" aria-hidden="true">✳</span>
+      </footer>
+    </div>
+
+    <dialog class="modal" id="how-modal" aria-labelledby="how-title">
+      <form method="dialog">
+        <button class="modal-close" aria-label="Fechar" type="submit">×</button>
+      </form>
+      <div class="modal-icon" aria-hidden="true">✦</div>
+      <p class="eyebrow">É BEM SIMPLES</p>
+      <h2 id="how-title">Como jogar</h2>
+      <p>Você tem seis tentativas para descobrir a palavra do dia. Cada palpite precisa ter cinco letras.</p>
+      <div class="legend">
+        <div class="legend-row"><span class="legend-tile tile-correct">A</span><span><strong>Verde</strong> — letra certa no lugar certo.</span></div>
+        <div class="legend-row"><span class="legend-tile tile-present">U</span><span><strong>Amarelo</strong> — a letra existe, mas está em outro lugar.</span></div>
+        <div class="legend-row"><span class="legend-tile tile-absent">R</span><span><strong>Cinza</strong> — essa letra não aparece na palavra.</span></div>
+      </div>
+      <p class="modal-footnote">A palavra é a mesma para todo mundo e muda à meia-noite UTC. Sem spoilers, combinado?</p>
+      <form method="dialog"><button class="primary-button modal-done" type="submit">Entendi!</button></form>
+    </dialog>
+
+    <dialog class="modal stats-modal" id="stats-modal" aria-labelledby="stats-title">
+      <form method="dialog">
+        <button class="modal-close" aria-label="Fechar" type="submit">×</button>
+      </form>
+      <div class="modal-icon" aria-hidden="true">▥</div>
+      <p class="eyebrow">SEU PROGRESSO</p>
+      <h2 id="stats-title">Estatísticas</h2>
+      <div class="stats-grid">
+        <div><strong id="stat-played">0</strong><span>partidas</span></div>
+        <div><strong id="stat-wins">0</strong><span>vitórias</span></div>
+        <div><strong id="stat-rate">0%</strong><span>de acerto</span></div>
+        <div><strong id="stat-streak">0</strong><span>streak atual</span></div>
+        <div><strong id="stat-best">0</strong><span>melhor streak</span></div>
+        <div><strong id="stat-last">—</strong><span>última palavra</span></div>
+      </div>
+      <form method="dialog"><button class="primary-button modal-done" type="submit">Fechar</button></form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
